@@ -10,7 +10,7 @@ import { UpdateCategoryDto } from '../../application/dtos/update-category.dto';
 export class CategoryRepository implements ICategoryRepository {
     constructor(
         @InjectRepository(Category)
-        private readonly repository: Repository<Category>,
+        private readonly repository: Repository<Category>
     ) { }
 
     async findAll(): Promise<Category[]> {

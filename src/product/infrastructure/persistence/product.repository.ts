@@ -21,7 +21,7 @@ export class ProductRepository implements IProductRepository {
             .where('product.isActive = :isActive', { isActive: true });
 
         if (filters?.categories?.length) {
-            queryBuilder.andWhere('category.id IN (:...categories)', {
+            queryBuilder.andWhere('category.name IN (:...categories)', {
                 categories: filters.categories,
             });
         }
@@ -33,11 +33,17 @@ export class ProductRepository implements IProductRepository {
         return queryBuilder.getMany();
     }
 
-    async findById(id: string): Promise<Product | null> {
-        return this.repository.findOne({
-            where: { id, isActive: true },
+    async findById(id: string): Promise<Product> {
+        const product = await this.repository.findOne({
+            where: { id },
             relations: ['category']
         });
+
+        if (!product) {
+            throw new Error(`Producto con ID ${id} no encontrado`);
+        }
+
+        return product;
     }
 
     async create(productDto: CreateProductDto): Promise<Product> {
@@ -47,7 +53,11 @@ export class ProductRepository implements IProductRepository {
 
     async update(id: string, productDto: UpdateProductDto): Promise<Product> {
         await this.repository.update(id, productDto);
-        return this.findById(id);
+        const product = await this.findById(id);
+        if (!product) {
+            throw new Error(`Producto con ID ${id} no encontrado`);
+        }
+        return product;
     }
 
     async delete(id: string): Promise<void> {

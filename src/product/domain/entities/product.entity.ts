@@ -39,6 +39,9 @@ export class Product {
     @Column({ type: 'text', nullable: true })
     description: string;
 
+    @Column({ type: 'boolean', default: true })
+    isActive: boolean;
+
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 

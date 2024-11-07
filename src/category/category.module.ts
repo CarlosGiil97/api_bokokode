@@ -6,15 +6,17 @@ import { CategoryRepository } from './infrastructure/persistence/category.reposi
 import { Category } from './domain/entities/category.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Category])],
+    imports: [
+        TypeOrmModule.forFeature([Category])
+    ],
     controllers: [CategoryController],
     providers: [
         CategoryService,
         {
             provide: 'ICategoryRepository',
-            useClass: CategoryRepository,
+            useClass: CategoryRepository
         }
     ],
-    exports: [CategoryService],
+    exports: [CategoryService]
 })
 export class CategoryModule { }

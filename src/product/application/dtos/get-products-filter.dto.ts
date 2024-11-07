@@ -6,19 +6,39 @@ export enum SortType {
     DESC = 'DESC'
 }
 
+export class SortOptions {
+    @ApiProperty({
+        description: 'Campo por el cual ordenar',
+        enum: ['price', 'name'],
+        example: 'price'
+    })
+    @IsString()
+    key: 'price' | 'name';
+
+    @ApiProperty({
+        description: 'Tipo de ordenamiento',
+        enum: SortType,
+        example: SortType.ASC
+    })
+    @IsEnum(SortType)
+    type: SortType;
+}
+
 export class GetProductsFilterDto {
-    @ApiProperty({ required: false })
+    @ApiProperty({
+        description: 'Categorías para filtrar',
+        required: false,
+        type: [String]
+    })
     @IsOptional()
     @IsArray()
     categories?: string[];
 
-    @ApiProperty({ required: false })
+    @ApiProperty({
+        description: 'Opciones de ordenamiento',
+        required: false,
+        type: () => SortOptions
+    })
     @IsOptional()
-    sort?: {
-    @IsString()
-    key: 'price' | 'name';
-
-    @IsEnum(SortType)
-    type: SortType;
-};
+    sort?: SortOptions;
 }

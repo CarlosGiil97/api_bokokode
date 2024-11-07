@@ -6,17 +6,17 @@ export class CreateCategoryDto {
         description: 'Nombre de la categoría',
         example: 'Electronics'
     })
-    @IsNotEmpty({ message: 'El nombre no puede estar vacío' })
-    @IsString()
-    @MaxLength(100)
-    name: string;
+    @IsNotEmpty({ message: 'El nombre es requerido' })
+    @IsString({ message: 'El nombre debe ser un texto' })
+    @MaxLength(100, { message: 'El nombre no puede tener más de 100 caracteres' })
+    name!: string;
 
     @ApiProperty({
         description: 'Descripción de la categoría',
-        example: 'Electronic devices and accessories',
+        example: 'Productos electrónicos y accesorios',
         required: false
     })
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'La descripción debe ser un texto' })
     description?: string;
 }
