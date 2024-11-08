@@ -10,7 +10,7 @@ export class PaginationInterceptor implements NestInterceptor {
                 if (Array.isArray(data)) {
                     const request = context.switchToHttp().getRequest();
                     const page = parseInt(request.query.page) || 1;
-                    const limit = parseInt(request.query.limit) || 10;
+                    const limit = parseInt(request.query.limit) || 6;
                     const total = data.length;
                     const totalPages = Math.ceil(total / limit);
                     const currentUrl = `${request.protocol}://${request.get('host')}${request.originalUrl.split('?')[0]}`;

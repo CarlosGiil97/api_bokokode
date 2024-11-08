@@ -5,6 +5,7 @@ import { ProductService } from './application/services/product.service';
 import { ProductRepository } from './infrastructure/persistence/product.repository';
 import { Product } from './domain/entities/product.entity';
 import { CategoryModule } from '../category/category.module';
+import { ProductRecommendationService } from './application/services/product-recomendation.service';
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import { CategoryModule } from '../category/category.module';
         {
             provide: 'IProductRepository',
             useClass: ProductRepository,
-        }
+        },
+        ProductRecommendationService
     ],
     exports: [ProductService],
 })

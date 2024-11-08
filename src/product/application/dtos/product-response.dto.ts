@@ -40,6 +40,9 @@ export class ProductResponseDto {
     description: string;
 
     @ApiProperty()
+    people_also_buy: ProductResponseDto[];
+
+    @ApiProperty()
     createdAt: Date;
 
     @ApiProperty()
