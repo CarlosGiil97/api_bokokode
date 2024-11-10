@@ -9,6 +9,12 @@ async function bootstrap() {
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
 
+    app.enableCors({
+        origin: 'http://localhost:4200',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+    });
+
     const config = new DocumentBuilder()
         .setTitle('API Prueba técnica Bokokode')
         .setDescription('API Prueba técnica Bokokode')
